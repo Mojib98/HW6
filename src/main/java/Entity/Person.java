@@ -4,6 +4,11 @@ abstract public class Person {
     private String fullName;
    private String nationalId;
    private String branchName;
+   private String branchId;
+
+    public String getBranchId() {
+        return branchId;
+    }
 
     public void setBranchName(String branchName) {
         this.branchName = branchName;
@@ -31,9 +36,10 @@ abstract public class Person {
         this.nationalId = nationalId;
     }
 
-    public Person(String fullName, String nationalId, String branchName) {
+    public Person(String fullName, String nationalId, String branchName,String branchId) {
         this.fullName = fullName;
         this.nationalId = nationalId;
         this.branchName = branchName;
+        this.branchId=branchId;
     }
 }
