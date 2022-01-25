@@ -11,41 +11,37 @@ import java.util.Scanner;
 public class BranchMainService {
     private String name;
     private String code;
-    private String MangeName;
-    BankManger bankManger;
+    private String mangeName;
+    private BankManger bankManger;
    // BranchService branchService = new BranchService();
-    BranchMainRepository branchRepository =new BranchMainRepository();
-    Sub_Branch sub_branch;
-    Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
+   private BranchMainRepository branchRepository;
+    private Sub_Branch sub_branch;
+    private Scanner scanner;
+    private Random random;
 
     public BranchMainService() throws SQLException, ClassNotFoundException {
+        this.branchRepository =new BranchMainRepository();
+        this.scanner = new Scanner(System.in);
+        this.random = new Random();
+
     }
 
-    public void establishedBankBranch(String mangeName) throws SQLException {
+    public void establishedBankBranch() throws SQLException {
         System.out.println("please insert name branch");
         this.name = scanner.next();
-       this. code =String.valueOf(random.ints(4,1000,2000).findFirst().getAsInt());
-        System.out.println("please insert mange name");
-        sub_branch = new Sub_Branch(name,mangeName,code);
-        hireing(this.name,this.code);
+        this.code = String.valueOf(random.ints(4, 1000, 2000).findFirst().getAsInt());
+        hireing(this.name, this.code);
+        sub_branch = new Sub_Branch(name, this.mangeName, code);
         branchRepository.hiringManager(this.bankManger);
         branchRepository.establishedBankBranch(sub_branch);
 
-        //some code for repositorr
     }
-   /* public String findBranchId(String name){
-        //code from repository
-        String s =""
-        String id;
-        return  id;
-    }*/
     public void hireing(String nameBranch,String idBranch){
         System.out.println("please insert full name");
-        String name=scanner.next();
+        this.mangeName=scanner.next();
         System.out.println("please insert nationalid");
         String nationalId =scanner.next();
-        String employeeId =String.valueOf(random.ints(4,1000,2000).findFirst().getAsInt());
-        this.bankManger=new BankManger(name,nationalId,employeeId,nameBranch,idBranch,"Management");
+        String employeeId =String.valueOf(random.ints(3,100,200).findFirst().getAsInt());
+        this.bankManger=new BankManger(this.mangeName,nationalId,employeeId,nameBranch,idBranch,"Management");
     }
 }
