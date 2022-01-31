@@ -16,6 +16,7 @@ public class EmployeeService {
     EmployeeRepository employeeRepository;
     Scanner scanner;
     Random random ;
+    AccountService accountService;
 
     public EmployeeService(String nameemployee) throws SQLException, ClassNotFoundException {
         employeeRepository = new EmployeeRepository();
@@ -36,6 +37,7 @@ public class EmployeeService {
         String cartCode="6037"+this.branchId+code+idcart;
         customer=new Customer(name,nationalid,this.branchName,this.branchId);
         account = new Account(code,name,cartCode,this.branchName,this.branchId);
+        accountService.createAccount(account,customer);
 
     }
     private void findBranchName(String idemployee) throws SQLException {
@@ -45,8 +47,12 @@ public class EmployeeService {
     private void findBranchId(String employee) throws SQLException {
         this.branchName=employeeRepository.findNameBranch(employee);
     }
-    public void deposite(){
-
+    public void deposite(long among,String name,String id){
+        account=new Account();
+        account.setAmount(among);
+        account.setName(name);
+        account.setId(id);
+        accountService.deposite(account);
     }
     public void withdraw(){
 

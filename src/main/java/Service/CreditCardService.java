@@ -23,6 +23,5 @@ public class CreditCardService {
     }
     private void blocking(){}
     private void activing(){}
-    private boolean ChackMony(){}
-
+    private boolean CheckMoney(){}
 }

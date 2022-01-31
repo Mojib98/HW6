@@ -2,7 +2,7 @@ package Entity;
 
 public class Account {
     private String name,id,cardId,branchName,branchId,status;
-    private int amount;
+    private long amount;
     public Account(String id,String name,String cardId,String branchName,String branchId) {
         this.name=name;
         this.cardId =cardId;
@@ -12,6 +12,10 @@ public class Account {
         this.id = id;
         this.amount = 0;
     }
+
+    public Account() {
+    }
+
     public void withdraw(Long amount) {
         if (amount > this.amount)
             System.out.println("Insufficient funds!");
@@ -72,7 +76,7 @@ public class Account {
         this.status = status;
     }
 
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
