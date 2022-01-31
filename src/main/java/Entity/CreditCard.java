@@ -8,11 +8,11 @@ public class CreditCard {
     private String password;
     private String status;
 
-    public CreditCard(String serialCarl, String cvv2, String password, String sate) {
+    public CreditCard(String serialCarl, String cvv2, String password, String status) {
         this.serialCarl = serialCarl;
         this.cvv2 = cvv2;
         this.password = password;
-        this.sate = sate;
+        this.status=status;
     }
 
     private String sate;

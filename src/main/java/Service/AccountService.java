@@ -9,10 +9,10 @@ import java.sql.SQLException;
 public class AccountService {
     AccountRepository accountRepository;
 
-    public void withdraw(long amont,String name,String id){
+    public void withdraw(long amount,String name,String id){
         long amountAccount=accountRepository.howMuchHave(id);
-        if (amountAccount < amont){
-            accountRepository.withdraw(amont,id);
+        if (amountAccount < amount){
+            accountRepository.withdraw(amount,id);
         }
         else {
             System.out.println("not have money");
@@ -38,5 +38,12 @@ public class AccountService {
      }}
     public  void showInformatjionAccount(String name){
         accountRepository.
+    }
+    public long haveMoney(String id){
+        try {
+            return accountRepository.howMuchHave(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

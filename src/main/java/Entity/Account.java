@@ -12,7 +12,6 @@ public class Account {
         this.id = id;
         this.amount = 0;
     }
-
     public Account() {
     }
 
@@ -80,7 +79,7 @@ public class Account {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Long amount) {
         this.amount = amount;
     }
     public void blockAccunt(){

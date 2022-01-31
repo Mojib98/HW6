@@ -55,6 +55,22 @@ public class CreditCardRepository {
         preparedStatement.setString(2,serialCard);
         preparedStatement.executeUpdate();
     }
-
+    public boolean isHaveAccount(String cardId) {
+        try {
+            String check = "SELECT COUNT(*) FROM account WHERE cardId=?";
+            this.preparedStatement = connection.prepareStatement(check);
+            preparedStatement.setString(1, cardId);
+            ResultSet resultSet = preparedStatement.executeQuery(check);
+            resultSet.next();
+            int c = resultSet.getInt(1);
+            if (c >= 1) {
+                return true;
+            } else
+                return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 }

@@ -18,17 +18,22 @@ public class EmployeeService {
     Random random ;
     AccountService accountService;
 
-    public EmployeeService(String nameemployee) throws SQLException, ClassNotFoundException {
-        employeeRepository = new EmployeeRepository();
-        scanner = new Scanner(System.in);
-        random = new Random();
-        findBranchId(nameemployee);
-        findBranchName(nameemployee);
+    public EmployeeService(String nameEmployee) throws SQLException, ClassNotFoundException {
+        try {
+            employeeRepository = new EmployeeRepository();
+            scanner = new Scanner(System.in);
+            random = new Random();
+            findBranchId(nameEmployee);
+            findBranchName(nameEmployee);
+        } catch (SQLException e) {
+            System.out.println("wrong");
+        } catch (ClassNotFoundException s) {
+            s.printStackTrace();
+        }
     }
 
-
     public void createAccount(){
-        System.out.println("please insert nmae");
+        System.out.println("please insert name");
         String name=scanner.next();
         System.out.println("please insert national id");
         String nationalid=scanner.next();
@@ -47,16 +52,27 @@ public class EmployeeService {
     private void findBranchId(String employee) throws SQLException {
         this.branchName=employeeRepository.findNameBranch(employee);
     }
-    public void deposite(long among,String name,String id){
+    public void deposite(long amoung,String name,String id){
         account=new Account();
-        account.setAmount(among);
+        account.setAmount(amoung);
         account.setName(name);
         account.setId(id);
         accountService.deposite(account);
     }
-    public void withdraw(){
-
+    public void withdraw(long amount,String name,String id){
+        long nowAmount=accountService.haveMoney(id);
+        if (nowAmount>amount) {
+            account = new Account();
+            account.setAmount(amount);
+            account.setName(name);
+            account.setId(id);
+            accountService.withdraw(amount,name,id);
+        }
+        else
+            System.out.println("you dont have enough money");
     }
-    public void showInformation(String id){
+    public void showInformationByName(String name){
+        accountService.showInformatjionAccount(name);
+    }
 
-    }}
+  }
