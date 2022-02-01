@@ -10,7 +10,7 @@ class Singleton
     private static Singleton obj;
     private Singleton() throws ClassNotFoundException, SQLException {
         Class.forName("org.postgresql.Driver");
-        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "mojib", "1");
+        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mojib", "mojib", "1");
     }
 
 

@@ -26,14 +26,18 @@ public class BranchMainService {
 
     }
 
-    public void establishedBankBranch() throws SQLException {
+    public void establishedBankBranch()  {
+
         System.out.println("please insert name branch");
         this.name = scanner.next();
         this.code = String.valueOf(random.ints(4, 1000, 2000).findFirst().getAsInt());
         hireing(this.name, this.code);
         sub_branch = new Sub_Branch(name, this.mangeName, code);
-        branchRepository.hiringManager(this.bankManger);
         branchRepository.establishedBankBranch(sub_branch);
+        branchRepository.hiringManager(this.bankManger);
+
+        System.out.println("your establish currect");
+
 
     }
     public void hireing(String nameBranch,String idBranch){
@@ -43,5 +47,8 @@ public class BranchMainService {
         String nationalId =scanner.next();
         String employeeId =String.valueOf(random.ints(3,100,200).findFirst().getAsInt());
         this.bankManger=new BankManger(this.mangeName,nationalId,employeeId,nameBranch,idBranch,"Management");
+    }
+    public void showAllBranch(){
+        branchRepository.showInformation();
     }
 }

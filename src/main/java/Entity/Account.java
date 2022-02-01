@@ -15,6 +15,11 @@ public class Account {
     public Account() {
     }
 
+    public Account(String id, long amount) {
+        this.id = id;
+        this.amount = amount;
+    }
+
     public void withdraw(Long amount) {
         if (amount > this.amount)
             System.out.println("Insufficient funds!");

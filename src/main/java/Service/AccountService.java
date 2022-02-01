@@ -7,43 +7,61 @@ import Repository.AccountRepository;
 import java.sql.SQLException;
 
 public class AccountService {
-    AccountRepository accountRepository;
+    AccountRepository accountRepository = new AccountRepository();
 
-    public void withdraw(long amount,String name,String id){
-        long amountAccount=accountRepository.howMuchHave(id);
-        if (amountAccount < amount){
-            accountRepository.withdraw(amount,id);
-        }
-        else {
-            System.out.println("not have money");
+    public AccountService() throws SQLException, ClassNotFoundException {
+    }
+
+    public void withdraw(long amount, String name, String id) {
+        try {
+
+            long amountAccount = accountRepository.howMuchHave(id);
+            if (amountAccount < amount) {
+                accountRepository.withdraw(amount, id);
+            } else {
+                System.out.println("not have money");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
     }
-    public void deposite(Account account){
+
+    public void deposit(Account account) {
         try {
 
-        accountRepository.deposit(account.getAmount(),account.getId());
-    }catch (SQLException e){
-            e.printStackTrace();
-        }}
-    public void createAccount(Account account, Customer customer){
-        try {
-        accountRepository.createAccount(account);
-
-    }catch (SQLException e) {
+            accountRepository.deposit(account.getAmount(), account.getId());
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-     catch (Exception s){
-            s.getStackTrace()
-     }}
-    public  void showInformatjionAccount(String name){
-        accountRepository.
     }
-    public long haveMoney(String id){
+
+    public void createAccount(Account account, Customer customer) {
+        try {
+            accountRepository.createAccount(account);
+
+        } catch (Exception s) {
+            s.getStackTrace();
+        }
+    }
+
+    public void showInformationAccount(String name) {
+        try {
+            accountRepository.showInformationByName(name);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public long haveMoney(String id) {
         try {
             return accountRepository.howMuchHave(id);
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
+    }
+    public String findIdByCard(String card){
+        return accountRepository.findId(card);
     }
 }

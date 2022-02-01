@@ -15,9 +15,9 @@ public class AccountRepository {
     public AccountRepository() throws SQLException, ClassNotFoundException {
         connection = Singleton.getInstance().getConnection();
     }
-    public void createAccount(Account account) throws SQLException {
+    public void createAccount(Account account)  {
         try {
-            String inser = "INSERT INTO account(name,accountid,branchid,branchname,cardid,amoumt) valuse(?,?,?,?,?,?);";
+            String inser = "INSERT INTO account(name,accountid,branchid,branchname,cardid,amount) values(?,?,?,?,?,?);";
             preparedStatement = connection.prepareStatement(inser);
             preparedStatement.setString(1, account.getName());
             preparedStatement.setString(2, account.getId());
@@ -25,22 +25,24 @@ public class AccountRepository {
             preparedStatement.setString(4, account.getBranchName());
             preparedStatement.setString(5, account.getCardId());
             preparedStatement.setLong(6, account.getAmount());
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
      public void deposit(long amount,String id) throws SQLException {
         try {
-        String a="SELECT amount from account" +
+        String a="SELECT amount from account " +
                 "where accountid=?";
         preparedStatement=connection.prepareStatement(a);
         preparedStatement.setString(1,id);
          ResultSet resultSet = preparedStatement.executeQuery();
          resultSet.next();
          long amo=resultSet.getLong(1);
-         amount +=amo;
-         String update="UPADTE account set amount=? where accountid=?";
+            resultSet.next();
+
+            amount +=amo;
+         String update=" UPDATE account set amount=? where accountid=?";
          preparedStatement=connection.prepareStatement(update);
          preparedStatement.setLong(1,amount);
          preparedStatement.setString(2,id);
@@ -51,7 +53,7 @@ public class AccountRepository {
         }
      }
      public void withdraw(long a,String id) throws SQLException {
-         String s="SELECT amount from account" +
+         String s="SELECT amount from account " +
                  "where accountid=?";
          preparedStatement=connection.prepareStatement(s);
          preparedStatement.setString(1,id);
@@ -67,7 +69,7 @@ public class AccountRepository {
      }
      public  long howMuchHave(String id) throws SQLException {
         try {
-         String a="SELECT amount from account" +
+         String a="SELECT amount from account " +
                  "where accountid=?";
          preparedStatement=connection.prepareStatement(a);
          preparedStatement.setString(1,id);
@@ -125,4 +127,17 @@ public class AccountRepository {
         }
 
     }
-}
+    public String findId(String card){
+
+        try {
+            String find="SELECT accountid FROM account where  cardid =?";
+        preparedStatement= connection.prepareStatement(find);
+        preparedStatement.setString(1,card);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet.getString(1);
+    }
+        catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+}}
