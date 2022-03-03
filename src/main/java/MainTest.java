@@ -17,5 +17,6 @@ public class MainTest {
         AccountRepository accountRepository = new AccountRepository();
         Account account = new Account("12","mojib","111111","1111","1312","jj",0);
         accountRepository.createAccount(account);
+        accountRepository.deposit(1200,"12");
     }
 }
