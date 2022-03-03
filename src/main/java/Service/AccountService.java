@@ -46,12 +46,9 @@ public class AccountService {
     }
 
     public void showInformationAccount(String name) {
-        try {
-            accountRepository.showInformationByName(name);
-        } catch (SQLException e) {
-            e.printStackTrace();
+  ;
         }
-    }
+
 
     public long haveMoney(String id) {
         try {
@@ -62,6 +59,6 @@ public class AccountService {
         }
     }
     public String findIdByCard(String card){
-        return accountRepository.findId(card);
+        return  null;//accountRepository.findId(card);
     }
 }

@@ -1,10 +1,7 @@
 package Entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +12,15 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Account {
     @Id
     private String id;
-    private String name, cardId, branchName, branchId;
+    private String name;
+    private String  cardId, branchName, branchId;
     private String status;
     private long amount;
+
 
     public Account(String id, long amount) {
         this.id = id;

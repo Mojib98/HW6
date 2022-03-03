@@ -51,8 +51,6 @@ public class AccountRepository {
      public void deposit(long amount,String id) throws SQLException {
 
 
-         Account accountn=new Account(id,amount);
-
          try (var session = sessionFactory.openSession()) {
              var transaction = session.beginTransaction();
              try {
@@ -70,22 +68,83 @@ public class AccountRepository {
          }
 
      }
-     public void withdraw(long a,String id) throws SQLException {
+     public void withdraw(long amount,String id) throws SQLException {
+
+         try (var session = sessionFactory.openSession()) {
+             var transaction = session.beginTransaction();
+             try {
+                 Account accpunt= session.find(Account.class,id);
+                 Long amount1=accpunt.getAmount();
+                 if (amount<=amount1) {
+                     amount -= amount1;
+                     accpunt.setAmount(amount);
+                     session.save(accpunt);
+                     transaction.commit();
+                 }
+                 else return;
+
+             } catch (Exception e) {
+                 transaction.rollback();
+                 throw e;
+             }
+         }
 
      }
      public  long howMuchHave(String id) throws SQLException {
 
-    return 0;
+         try (var session = sessionFactory.openSession()) {
+             var transaction = session.beginTransaction();
+             try {
+                 Account accpunt= session.find(Account.class,id);
+                 Long amount1=accpunt.getAmount();
+                    return amount1;
+             } catch (Exception e) {
+                 transaction.rollback();
+                 throw e;
+             }
+         }
+
     }
+
     public void showInformationByName(String name) throws SQLException {
+        try (var session = sessionFactory.openSession()) {
+            var transaction = session.beginTransaction();
+            try {
+                Account accpunt= session.find(Account.class,name);
+                System.out.println(accpunt);
+            } catch (Exception e) {
+                transaction.rollback();
+                throw e;
+            }
+        }
 
     }
     public void showInformationById(String id) throws SQLException {
+        try (var session = sessionFactory.openSession()) {
+            var transaction = session.beginTransaction();
+            try {
+                Account accpunt= session.find(Account.class,id);
+                System.out.println(accpunt);
+            } catch (Exception e) {
+                transaction.rollback();
+                throw e;
+            }
+        }
 
 
     }
-    public String findId(String card){
-       return "";
-}
+     /*
+    public String findId(String cardid){
+        try (var session = sessionFactory.openSession()) {
+            var transaction = session.beginTransaction();
+            try {
+                Account accpunt= session.find(Account.class,cardid);
+                return accpunt.getId();
+            } catch (Exception e) {
+                transaction.rollback();
+                throw e;
+            }
+        }
+}*/
 
 }
