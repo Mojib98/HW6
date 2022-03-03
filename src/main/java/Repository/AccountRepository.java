@@ -55,10 +55,10 @@ public class AccountRepository {
              var transaction = session.beginTransaction();
              try {
                 Account accpunt= session.find(Account.class,id);
-                Long amount1=accpunt.getAmount();
+                Long amount1 = accpunt.getAmount();
                  amount +=amount1;
                  accpunt.setAmount(amount);
-                 session.save(accpunt);
+                 session.update(accpunt);
 
                  transaction.commit();
              } catch (Exception e) {
@@ -78,7 +78,7 @@ public class AccountRepository {
                  if (amount<=amount1) {
                      amount -= amount1;
                      accpunt.setAmount(amount);
-                     session.save(accpunt);
+                     session.update(accpunt);
                      transaction.commit();
                  }
                  else return;
