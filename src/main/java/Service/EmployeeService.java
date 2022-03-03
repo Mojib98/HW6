@@ -40,7 +40,7 @@ public class EmployeeService {
         String idcart = String.valueOf(random.ints(4, 7000, 9000).findFirst().getAsInt());
         String cartCode = "6037" + this.branchId + code + idcart;
         customer = new Customer(name, nationalid, this.branchName, this.branchId);
-        account = new Account(code, name, cartCode, this.branchName, this.branchId);
+        account = new Account(code, name, cartCode, this.branchName, this.branchId,"ACTIVE",0);
         accountService = new AccountService();
         accountService.createAccount(account, customer);
 

@@ -1,6 +1,7 @@
 package Repository;
 
 import Entity.Account;
+import org.hibernate.SessionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,11 +12,13 @@ public class AccountRepository {
 
     Connection connection;
     PreparedStatement preparedStatement;
+    private SessionFactory sessionFactory = SessionFactorySingleton.getInstance();
 
     public AccountRepository() throws SQLException, ClassNotFoundException {
         connection = Singleton.getInstance().getConnection();
     }
     public void createAccount(Account account)  {
+        /*
         try {
             String inser = "INSERT INTO account(name,accountid,branchid,branchname,cardid,amount) values(?,?,?,?,?,?);";
             preparedStatement = connection.prepareStatement(inser);
@@ -28,7 +31,22 @@ public class AccountRepository {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }*/
+        try (var session = sessionFactory.openSession()) {
+            var transaction = session.beginTransaction();
+            try {
+                session.save(account);
+                transaction.commit();
+            } catch (Exception e) {
+                transaction.rollback();
+                throw e;
+            }
         }
+
+
+
+
+
     }
      public void deposit(long amount,String id) throws SQLException {
         try {
@@ -47,6 +65,8 @@ public class AccountRepository {
          preparedStatement.setLong(1,amount);
          preparedStatement.setString(2,id);
          preparedStatement.executeUpdate();
+
+
      }
     catch (SQLException e){
         e.printStackTrace();
