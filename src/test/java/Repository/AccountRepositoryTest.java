@@ -30,20 +30,21 @@ class AccountRepositoryTest {
 
         try (var session = sessionFactory.openSession()) {
             var transaction = session.beginTransaction();
-            String stringQuery = "DELETE FROM Entity.Account";
-            Query query = session.createQuery(stringQuery);
-            query.executeUpdate();
+           session.save(accountT);
+           transaction.commit();
         }
     }
     @AfterEach
     public void clear(){
-        try (var session = sessionFactory.openSession()) {
-            var transaction = session.beginTransaction();
-            session.delete(accountT);
-            transaction.commit();
+            try (var session = sessionFactory.openSession()) {
+                var transaction = session.beginTransaction();
+                String stringQuery = "DELETE FROM Entity.Account";
+                Query query = session.createQuery(stringQuery);
+                query.executeUpdate();
+            }
         }
 
-    }
+
 
 
 
