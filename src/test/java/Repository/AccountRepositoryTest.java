@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.persistence.Query;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,8 +30,9 @@ class AccountRepositoryTest {
 
         try (var session = sessionFactory.openSession()) {
             var transaction = session.beginTransaction();
-            session.save(accountT);
-            transaction.commit();
+            String stringQuery = "DELETE FROM Entity.Account";
+            Query query = session.createQuery(stringQuery);
+            query.executeUpdate();
         }
     }
     @AfterEach
