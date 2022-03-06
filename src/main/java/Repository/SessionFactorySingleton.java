@@ -7,7 +7,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class SessionFactorySingleton {
 
-    private SessionFactorySingleton() {}
+    SessionFactorySingleton() {}
 
     private static class LazyHolder {
         static SessionFactory INSTANCE;
